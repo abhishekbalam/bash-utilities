@@ -13,9 +13,8 @@ help_msg(){
 	echo -e "\e[36m\e[1m__Personal Blog Manager__\e[0m"
 	echo ""
 	echo "A utility to help manage and post on my Jekyll blog and push to Github Pages."
-	
+
 	echo ""
-	
 	echo -e "\e[38;5;222mUsage Instructions:\e[0m"
 	
 	echo ""
@@ -27,6 +26,15 @@ help_msg(){
 	echo -e "		Auto \e[31madd+commit+push\e[0m to Github Pages repository."
 	echo ""
 
+
+	echo -e " \e[92mbuild\e[0m" 
+	echo -e "		Build/Complile local Jekyll site."
+	echo ""
+
+	echo -e " \e[92mdemo\e[0m" 
+	echo -e "		Run Jekyll site locally."
+	echo ""
+
 	echo -e "\e[38;5;222mOptional args:\e[0m"
 	echo ""
 	echo -e " \e[92m-h\e[0m"
@@ -36,6 +44,7 @@ help_msg(){
 }
 
 help(){
+
 	help_msg
 	echo ""
 	echo -e "\e[1mHelp Text\e[0m"
@@ -43,6 +52,7 @@ help(){
 	echo -e "\nipsa ut voluptatem similique possimus delectus vitae quisquam.\nDistinctio molestias dolor,"
 	echo -e "\nsuscipit doloremque ipsa."
 	exit 1;
+
 }
 
 if [[ $# -eq 0 ]] ; then
@@ -51,19 +61,45 @@ if [[ $# -eq 0 ]] ; then
 fi
 
 push(){
+
 	echo "Pushing site to GitHub Pages.."
 	echo ""
 	cd ~/Blog/blog.abhishekbalam.xyz
 	git add .
 	git commit -m "$(date)"
 	git push
+	echo ""
+	echo "Now just check the website if the site is updated.. :)"
+
 }
+
+compile(){
+
+	echo "Building Jekyll site."
+	echo ""
+	cd ~/Blog/blog.abhishekbalam.xyz
+	jekyll build
+
+}
+
+serve(){
+
+	echo "Running Jekyll site locally..."
+	echo ""
+	cd ~/Blog/blog.abhishekbalam.xyz
+	jekyll serve --watch 
+	xdg-open http://127.0.0.1:4000 &
+
+}
+
 
 while [ $# -gt 0 ]
 do
     case "$1" in
        	today)  subl ~/Blog/blog.abhishekbalam.xyz;;
-		publish) push;; 
+		publish) push;;
+		build) compile;;
+		demo) serve;;
 		-h)  help;;
 		*)  
 			help_msg "\e[31m\e[1mWrong arguments!\e[0m"
@@ -72,7 +108,3 @@ do
  	esac
     shift
 done
-
-echo ""
-echo "Now just check the website if the site is updated.. :)"
-exit 0;
