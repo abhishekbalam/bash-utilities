@@ -1,0 +1,83 @@
+#!/bin/bash
+
+help_msg(){
+	
+	echo ""
+	
+	if [ "${1+xxx}" ];
+		then
+		echo -e $1
+		echo ""
+	fi
+	
+	echo -e "\e[36m\e[1m__Personal Blog Manager__\e[0m"
+	echo ""
+	echo "A utility to help manage and post on my Jekyll blog and push to Github Pages."
+	
+	echo ""
+	
+	echo -e "\e[38;5;222mUsage Instructions:\e[0m"
+	
+	echo ""
+	echo -e " \e[92mtoday\e[0m" 
+	echo "		Opens sublime text with the jekyll project directory."
+	echo ""
+
+	echo -e " \e[92mpublish\e[0m" 
+	echo -e "		Auto \e[31madd+commit+push\e[0m to Github Pages repository."
+	echo ""
+
+	
+	echo -e "\e[38;5;222mOptional args:\e[0m"
+	echo ""
+	echo -e " \e[92m-h\e[0m"
+	echo "		Help and documentation."
+	echo ""
+	
+}
+
+help(){
+	help_msg
+	echo ""
+	echo -e "\e[1mHelp Text\e[0m"
+	echo -e "Lorem ipsum dolor sit amet, consectetur adipisicing elit.\nQuia libero voluptatum veniam laudantium corporis, illo enim"
+	echo -e "\nipsa ut voluptatem similique possimus delectus vitae quisquam.\nDistinctio molestias dolor,"
+	echo -e "\nsuscipit doloremque ipsa."
+	exit 1;
+}
+
+if [[ $# -eq 0 ]] ; then
+	help_msg
+	exit 1;
+fi
+
+
+while [ $# -gt 0 ]
+do
+    case "$1" in
+       	today)  "subl ~/Blog/blog.abhishekbalam.xyz/";;
+		publish) jpush;; 
+		-h)  help;;
+		*)  
+			help_msg "\e[31m\e[1mWrong arguments!\e[0m"
+			exit 1;
+			break;
+ 	esac
+    shift
+done
+
+# if [ -z "$proj_name" ] && [ "${proj_name+xxx}" = "xxx" ]; then
+# 	help_msg "\e[31m\e[1mSet project name!\e[0m"
+# 	exit 1;
+# fi
+
+# if [ -d "$proj_name" ]; then
+#   echo -e '\e[31m\e[1mERROR: Project Exists..\e[0m\nExiting...' ;
+#   exit 1;
+# fi
+
+# if [ "$git_init" = true ]; then
+# 	echo "Initializing git..."
+# 	printf "*pyc\n__pycache__\nbin\npyvenv.cfg\ninclude\nlib*\nshare" > .gitignore
+# 	git init .
+# fi
