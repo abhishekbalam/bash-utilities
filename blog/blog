@@ -19,21 +19,20 @@ help_msg(){
 	
 	echo ""
 	echo -e " \e[92mtoday\e[0m" 
-	echo "		Opens sublime text with the jekyll project directory."
+	echo "		Opens sublime text with new blog post file created for today."
+	
 	echo ""
-
+	echo -e " \e[92mopen\e[0m" 
+	echo "		Opens sublime text with the jekyll project directory."
+	
 	echo -e " \e[92mpublish\e[0m" 
 	echo -e "		Auto \e[31madd+commit+push\e[0m to Github Pages repository."
-	echo ""
-
-
+	
 	echo -e " \e[92mbuild\e[0m" 
 	echo -e "		Build/Complile local Jekyll site."
-	echo ""
 
 	echo -e " \e[92mdemo\e[0m" 
-	echo -e "		Run Jekyll site locally."
-	echo ""
+	echo -e "		Run Jekyll site locally at http://127.0.0.1:4000. "
 
 	echo -e "\e[38;5;222mOptional args:\e[0m"
 	echo ""
@@ -60,22 +59,31 @@ if [[ $# -eq 0 ]] ; then
 	exit 1;
 fi
 
+today(){
+	cd ~/Blog/blog.abhishekbalam.xyz
+	wait
+	subl . 
+	wait 
+	title=""$1 | tr ' ' '-'
+	subl $(pwd)/_posts/$(date +%Y-%m-%d)-post.md -a
+}
+
 push(){
 
-	echo "Pushing site to GitHub Pages.."
+	echo  -e "\e[38;5;222mPushing site to GitHub Pages..\e[0m"
 	echo ""
 	cd ~/Blog/blog.abhishekbalam.xyz
 	git add .
 	git commit -m "$(date)"
 	git push
 	echo ""
-	echo "Now just check the website if the site is updated.. :)"
+	echo  -e "\e[38;5;222mNow just check the website if the site is updated.. :)\e[0m"
 
 }
 
 compile(){
 
-	echo "Building Jekyll site."
+	echo  -e "\e[38;5;222mBuilding Jekyll site.\e[0m"
 	echo ""
 	cd ~/Blog/blog.abhishekbalam.xyz
 	jekyll build
@@ -84,11 +92,13 @@ compile(){
 
 serve(){
 
-	echo "Running Jekyll site locally..."
+	echo  -e "\e[38;5;222mRunning Jekyll site locally...\e[0m"
+	echo ""
+	echo  -e "\e[38;5;222mOpen browser at http://127.0.0.1:400 to see the site.\e[0m"
 	echo ""
 	cd ~/Blog/blog.abhishekbalam.xyz
-	jekyll serve --watch 
-	xdg-open http://127.0.0.1:4000 &
+	jekyll serve --watch
+	# xdg-open http://127.0.0.1:4000 &
 
 }
 
@@ -96,7 +106,8 @@ serve(){
 while [ $# -gt 0 ]
 do
     case "$1" in
-       	today)  subl ~/Blog/blog.abhishekbalam.xyz;;
+       	open)  subl ~/Blog/blog.abhishekbalam.xyz;;
+		today) today;;
 		publish) push;;
 		build) compile;;
 		demo) serve;;
