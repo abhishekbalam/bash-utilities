@@ -60,7 +60,7 @@ if [[ $# -eq 0 ]] ; then
 fi
 
 today(){
-	cd ~/Blog/blog.abhishekbalam.xyz
+	cd ~/Web/blog
 	wait
 	subl . 
 	wait 
@@ -72,7 +72,7 @@ push(){
 
 	echo  -e "\e[38;5;222mPushing site to GitHub Pages..\e[0m"
 	echo ""
-	cd ~/Blog/blog.abhishekbalam.xyz
+	cd ~/Web/blog
 	git add .
 	git commit -m "$(date)"
 	git push
@@ -85,7 +85,7 @@ compile(){
 
 	echo  -e "\e[38;5;222mBuilding Jekyll site.\e[0m"
 	echo ""
-	cd ~/Blog/blog.abhishekbalam.xyz
+	cd ~/Web/blog
 	jekyll build
 
 }
@@ -96,7 +96,7 @@ serve(){
 	echo ""
 	echo  -e "\e[38;5;222mOpen browser at http://127.0.0.1:400 to see the site.\e[0m"
 	echo ""
-	cd ~/Blog/blog.abhishekbalam.xyz
+	cd ~/Web/blog
 	jekyll serve --watch
 	# xdg-open http://127.0.0.1:4000 &
 
@@ -106,7 +106,7 @@ serve(){
 while [ $# -gt 0 ]
 do
     case "$1" in
-       	open)  subl ~/Blog/blog.abhishekbalam.xyz;;
+       	open)  subl ~/Web/blog;;
 		today) today;;
 		publish) push;;
 		build) compile;;
