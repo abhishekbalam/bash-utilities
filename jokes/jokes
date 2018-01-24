@@ -1,0 +1,17 @@
+#!/bin/bash
+
+chuck=`curl -H "Accept: text/plain" https://api.chucknorris.io/jokes/random 2>/dev/null`
+dad=`curl -H "Accept: text/plain" https://icanhazdadjoke.com/ 2>/dev/null`
+ron=`curl -H "Accept: text/plain" http://ron-swanson-quotes.herokuapp.com/v2/quotes 2>/dev/null`
+ron=${ron//[} 
+ron=${ron//]}
+
+echo ""
+echo ""
+echo 'Chuck Norris Fact: '$chuck
+echo ""
+echo 'Dad Joke: '$dad
+echo ""
+echo 'Ron Swanson Fact: '$ron
+echo ""
+echo ""
