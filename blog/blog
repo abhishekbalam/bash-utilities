@@ -19,11 +19,13 @@ help_msg(){
 	
 	echo ""
 	echo -e " \e[92mtoday\e[0m" 
-	echo "		Opens sublime text with new blog post file created for today."
+	echo "		Opens Sublime Text with new blog post file created for today."
 	
-	echo ""
+	echo -e " \e[92mfiles\e[0m" 
+	echo "		Opens Nautilus with the Jekyll project directory."
+	
 	echo -e " \e[92mopen\e[0m" 
-	echo "		Opens sublime text with the jekyll project directory."
+	echo "		Opens Sublime Text with the Jekyll project directory."
 	
 	echo -e " \e[92mpublish\e[0m" 
 	echo -e "		Auto \e[31madd+commit+push\e[0m to Github Pages repository."
@@ -107,6 +109,7 @@ while [ $# -gt 0 ]
 do
     case "$1" in
        	open)  subl ~/Web/blog;;
+		files) nautilus ~/Web/blog;;
 		today) today;;
 		publish) push;;
 		build) compile;;
