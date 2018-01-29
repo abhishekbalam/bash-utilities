@@ -34,7 +34,10 @@ help_msg(){
 	echo -e "		Build/Complile local Jekyll site."
 
 	echo -e " \e[92mdemo\e[0m" 
-	echo -e "		Run Jekyll site locally at http://127.0.0.1:4000. "
+	echo -e "		Run Jekyll site locally at http://127.0.0.1:4000 . "
+
+	echo -e " \e[92mview\e[0m" 
+	echo -e "		View the blog site. "
 
 	echo -e "\e[38;5;222mOptional args:\e[0m"
 	echo ""
@@ -96,7 +99,7 @@ serve(){
 
 	echo  -e "\e[38;5;222mRunning Jekyll site locally...\e[0m"
 	echo ""
-	echo  -e "\e[38;5;222mOpen browser at http://127.0.0.1:400 to see the site.\e[0m"
+	echo  -e "\e[38;5;222mOpen browser at http://127.0.0.1:4000 to see the site.\e[0m"
 	echo ""
 	cd ~/Web/blog
 	jekyll serve --watch
@@ -114,6 +117,7 @@ do
 		publish) push;;
 		build) compile;;
 		demo) serve;;
+		view) xdg-open http://personal.abhishekbalam.xyz& ;;
 		-h)  help;;
 		*)  
 			help_msg "\e[31m\e[1mWrong arguments!\e[0m"
