@@ -1,1 +1,2 @@
-Shell script to manage and publish my blog.
+#Shell script to manage and publish my blog.
+

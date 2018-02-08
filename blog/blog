@@ -18,25 +18,32 @@ help_msg(){
 	echo -e "\e[38;5;222mUsage Instructions:\e[0m"
 	
 	echo ""
-	echo -e " \e[92mtoday\e[0m" 
-	echo "		Opens Sublime Text with new blog post file created for today."
+	echo -e " \e[92m1. post\e[0m" 
+	echo "		Opens Sublime Text with new blog post created for today."
 	
-	echo -e " \e[92mfiles\e[0m" 
+	echo ""
+	echo -e " \e[92m2. note\e[0m" 
+	echo "		Opens Sublime Text with new note created for today."
+	
+	echo -e " \e[92m3. files\e[0m" 
 	echo "		Opens Nautilus with the Jekyll project directory."
 	
-	echo -e " \e[92mopen\e[0m" 
+	echo -e " \e[92m4. open\e[0m" 
 	echo "		Opens Sublime Text with the Jekyll project directory."
 	
-	echo -e " \e[92mpublish\e[0m" 
+	echo -e " \e[92m5. push\e[0m" 
 	echo -e "		Auto \e[31madd+commit+push\e[0m to Github Pages repository."
 	
-	echo -e " \e[92mbuild\e[0m" 
-	echo -e "		Build/Complile local Jekyll site."
+	echo -e " \e[92m6. publish\e[0m" 
+	echo -e "		Build/Complile + publish via Surge ."
 
-	echo -e " \e[92mdemo\e[0m" 
+	echo -e " \e[92m7. build\e[0m" 
+	echo -e "		Build Jekyll site locally. "
+
+	echo -e " \e[92m8. demo\e[0m" 
 	echo -e "		Run Jekyll site locally at http://127.0.0.1:4000 . "
 
-	echo -e " \e[92mview\e[0m" 
+	echo -e " \e[92m9. view\e[0m" 
 	echo -e "		View the blog site. "
 
 	echo -e "\e[38;5;222mOptional args:\e[0m"
@@ -64,13 +71,23 @@ if [[ $# -eq 0 ]] ; then
 	exit 1;
 fi
 
-today(){
+post(){
 	cd ~/Web/blog
 	wait
 	subl . 
 	wait 
 	title=""$1 | tr ' ' '-'
 	subl $(pwd)/_posts/$(date +%Y-%m-%d)-post.md -a
+}
+
+
+note(){
+	cd ~/Web/blog
+	wait
+	subl . 
+	wait 
+	title=""$1 | tr ' ' '-'
+	subl $(pwd)/_notes/$(date +%Y-%m-%d)-post.md -a
 }
 
 push(){
@@ -80,26 +97,27 @@ push(){
 	cd ~/Web/blog
 	git add .
 	git commit -m "$(date)"
-	git push
-	echo ""
-	echo  -e "\e[38;5;222mNow just check the website if the site is updated.. :)\e[0m"
-
+	git config credential.username "cricketball"
+	git push origin master
+	git config credential.username "abhishekbalam"
 }
 
-compile(){
-
+build(){
 	echo  -e "\e[38;5;222mBuilding Jekyll site.\e[0m"
 	echo ""
 	cd ~/Web/blog
 	jekyll build
-
 }
+
+compile(){
+	build
+	surge _site -d journal.abhishekbalam.xyz
+}
+
 
 serve(){
 
 	echo  -e "\e[38;5;222mRunning Jekyll site locally...\e[0m"
-	echo ""
-	echo  -e "\e[38;5;222mOpen browser at http://127.0.0.1:4000 to see the site.\e[0m"
 	echo ""
 	cd ~/Web/blog
 	jekyll serve --watch
@@ -113,11 +131,13 @@ do
     case "$1" in
        	open)  subl ~/Web/blog;;
 		files) nautilus ~/Web/blog;;
-		today) today;;
-		publish) push;;
-		build) compile;;
+		post) post;;
+		note) note;;
+		push) push;;
+		publish) compile;;
 		demo) serve;;
-		view) xdg-open http://personal.abhishekbalam.xyz& ;;
+		build) build;;
+		view) xdg-open http://journal.abhishekbalam.xyz& ;;
 		-h)  help;;
 		*)  
 			help_msg "\e[31m\e[1mWrong arguments!\e[0m"
