@@ -76,8 +76,10 @@ post(){
 	wait
 	subl . 
 	wait 
-	title=""$1 | tr ' ' '-'
-	subl $(pwd)/_posts/$(date +%Y-%m-%d)-post.md -a
+	title=$(pwd)/_posts/$(date +%Y-%m-%d)-post.md
+	touch $title
+	echo -e '---\nlayout: post\ntitle: "" \n\n---' > $title
+	subl $title -a
 }
 
 
@@ -86,8 +88,10 @@ note(){
 	wait
 	subl . 
 	wait 
-	title=""$1 | tr ' ' '-'
-	subl $(pwd)/_notes/$(date +%Y-%m-%d)-post.md -a
+	title=$(pwd)/_notes/$(date +%Y-%m-%d)-note.md
+	touch $title 
+	echo -e '---\nlayout: note\ntitle: "" \n\n---' > $title
+	subl $title -a
 }
 
 push(){
@@ -98,7 +102,9 @@ push(){
 	git add .
 	git commit -m "$(date)"
 	git config credential.username "cricketball"
+	wait
 	git push origin master
+	wait
 	git config credential.username "abhishekbalam"
 }
 
