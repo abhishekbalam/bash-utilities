@@ -1,0 +1,3 @@
+#!/bin/bash
+
+subl ~/bin/markdown.md -a
